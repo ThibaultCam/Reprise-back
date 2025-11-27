@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Reprise_back.Model;
 
 namespace Reprise_back.Controllers
 {

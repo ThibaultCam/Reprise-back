@@ -1,4 +1,4 @@
-namespace Reprise_back
+namespace Reprise_back.Model
 {
     public class WeatherForecast
     {
