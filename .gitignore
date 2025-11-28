@@ -36,6 +36,7 @@ global.json
 # Configuration sensitive
 appsettings.Development.json
 appsettings.Local.json
+appsettings.*.json
 appsettings.*.local.json
 secrets.json
 
@@ -73,4 +74,5 @@ iisexpress/
 
 # Docker
 docker-compose.override.yml
+/appsettings.json
 /appsettings.json

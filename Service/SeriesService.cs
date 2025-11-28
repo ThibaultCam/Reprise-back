@@ -1,12 +1,13 @@
 ﻿using Reprise_back.Models;
+using Reprise_back.Repository.Interface;
 using Reprise_back.Service.Interface;
 
 namespace Reprise_back.Service
 {
     public class SeriesService : ISeriesService
     {
-        //private readonly ISeriesRepository _repo;
-        //public SeriesService(ISeriesRepository repo) => _repo = repo;
+        private readonly ISeriesRepository _repo;
+        public SeriesService(ISeriesRepository repo) => _repo = repo;
 
         public Task<List<Serie>> GetAllAsync() => _repo.GetAllAsync();
         public Task<Serie?> GetByIdAsync(int id) => _repo.GetByIdAsync(id);

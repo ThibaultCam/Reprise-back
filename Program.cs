@@ -3,14 +3,21 @@ using Reprise_back.Service;
 using Reprise_back.Service.Interface;
 using Reprise_back.Repository;
 using Reprise_back.Repository.Interface;
+using Microsoft.EntityFrameworkCore;
 {
     
 }
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    )
+);
 
+
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddScoped<IFilmRepository, FilmRepository>();
 builder.Services.AddScoped<ISeriesRepository, SeriesRepository>();
