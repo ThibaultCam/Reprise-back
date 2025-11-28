@@ -5,7 +5,7 @@ using Reprise_back.Service.Interface;
 namespace Reprise_back.Controllers
 {
     [ApiController]
-    [Route("api/films")]
+    [Route("[controller]")]
     public class FilmController : ControllerBase
     {
         private readonly IFilmService _service;

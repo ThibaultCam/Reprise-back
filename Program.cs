@@ -28,6 +28,15 @@ builder.Services.AddScoped<ISeriesService, SeriesService>();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
+// gestion de la Serialization
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
+
+
 // CORS pour Angular (adapter l’URL)
 builder.Services.AddCors(options =>
 {

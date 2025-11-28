@@ -4,6 +4,8 @@ using Reprise_back.Service.Interface;
 
 namespace Reprise_back.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class SerieController : ControllerBase
     {
         private readonly ISeriesService _service;
