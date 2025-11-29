@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Authentication;
-using Reprise_back.Service;
-using Reprise_back.Service.Interface;
+using Microsoft.EntityFrameworkCore;
+using Reprise_back.Middlewares;
 using Reprise_back.Repository;
 using Reprise_back.Repository.Interface;
-using Microsoft.EntityFrameworkCore;
+using Reprise_back.Service;
+using Reprise_back.Service.Interface;
 {
     
 }
@@ -51,6 +52,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseCors("AngularPolicy");
+app.UseMiddleware<ExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

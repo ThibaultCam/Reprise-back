@@ -22,14 +22,19 @@ namespace Reprise_back.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(SerieDto serie)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var created = await _service.AddAsync(serie);
             return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, SerieDto serie)
+        public async Task<IActionResult> Update(SerieDto serie)
         {
-            serie.Id = id;
+            if (!ModelState.IsValid || serie.Id.Equals(null))
+                return BadRequest(ModelState);
+
             await _service.UpdateAsync(serie);
             return Ok();
         }

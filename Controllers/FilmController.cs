@@ -21,14 +21,18 @@ namespace Reprise_back.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(FilmDto film)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var created = await _service.AddAsync(film);
             return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, FilmDto film)
+        public async Task<IActionResult> Update(FilmDto film)
         {
-            film.Id = id;
+            if (!ModelState.IsValid || film.Id.Equals(null))
+                return BadRequest(ModelState);
             await _service.UpdateAsync(film);
             return Ok();
         }
