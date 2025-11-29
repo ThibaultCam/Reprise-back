@@ -9,11 +9,60 @@ namespace Reprise_back.Repository
 
         public DbSet<Film> Films => Set<Film>();
         public DbSet<Serie> Series => Set<Serie>();
+        public DbSet<Genre> Genres => Set<Genre>();
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Film>().ToTable("Films");
             modelBuilder.Entity<Serie>().ToTable("Series");
+
+            modelBuilder.Entity<Film>()
+                .HasMany(f => f.Genres)
+                .WithMany(g => g.Films)
+                .UsingEntity<FilmGenre>(
+                    j => j
+                        .HasOne(fg => fg.Genre)
+                        .WithMany(g => g.FilmGenres)
+                        .HasForeignKey(fg => fg.GenreId),
+                    j => j
+                        .HasOne(fg => fg.Film)
+                        .WithMany(f => f.FilmGenres)
+                        .HasForeignKey(fg => fg.FilmId),
+                    j =>
+                    {
+                        j.HasKey(fg => new { fg.FilmId, fg.GenreId });
+                        j.ToTable("FilmGenres");
+                    });
+
+            modelBuilder.Entity<Serie>()
+                .HasMany(s => s.Genres)
+                .WithMany(g => g.Series)
+                .UsingEntity<SerieGenre>(
+                    j => j
+                        .HasOne(sg => sg.Genre)
+                        .WithMany(g => g.SerieGenres)
+                        .HasForeignKey(sg => sg.GenreId),
+                    j => j
+                        .HasOne(sg => sg.Serie)
+                        .WithMany(s => s.SerieGenres)
+                        .HasForeignKey(sg => sg.SerieId),
+                    j =>
+                    {
+                        j.HasKey(sg => new { sg.SerieId, sg.GenreId });
+                        j.ToTable("SerieGenres");
+                    });
+
+
+
+            modelBuilder.Entity<Genre>().HasData(
+                new Genre { Id = 1, Name = "Action" },
+                new Genre { Id = 2, Name = "Drama" },
+                new Genre { Id = 3, Name = "Science Fiction" },
+                new Genre { Id = 4, Name = "Thriller" }
+            );
+
             modelBuilder.Entity<Film>().HasData(
                 new Film
                 {
@@ -21,7 +70,7 @@ namespace Reprise_back.Repository
                     Name = "Inception",
                     Description = "A thief who steals corporate secrets through the use of dream-sharing technology.",
                     ReleaseDate = new DateTime(2010, 7, 16),
-                    DurationMinutes = 148
+                    DurationMinutes = 148,
                 },
                 new Film
                 {
@@ -29,7 +78,7 @@ namespace Reprise_back.Repository
                     Name = "The Matrix",
                     Description = "A computer hacker learns about the true nature of his reality and his role in the war against its controllers.",
                     ReleaseDate = new DateTime(1999, 3, 31),
-                    DurationMinutes = 136
+                    DurationMinutes = 136,
                 },
                 new Film
                 {
@@ -37,9 +86,9 @@ namespace Reprise_back.Repository
                     Name = "Interstellar",
                     Description = "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
                     ReleaseDate = new DateTime(2014, 11, 7),
-                    DurationMinutes = 169
+                    DurationMinutes = 169,
                 }
-                );
+            );
             modelBuilder.Entity<Serie>().HasData(
                 new Serie
                 {
@@ -55,7 +104,7 @@ namespace Reprise_back.Repository
                     Description = "A group of kids in the 1980s uncover supernatural mysteries in their small town.",
                     ReleaseDate = new DateTime(2016, 7, 15),
                 }
-                );
+            );
 
             modelBuilder.Entity<Seasons>().HasData(
                 new Seasons { Id = 1, SerieId = 1, SeasonNumber = 1, NbEpisodes = 5 },
@@ -64,6 +113,20 @@ namespace Reprise_back.Repository
                 new Seasons { Id = 4, SerieId = 2, SeasonNumber = 2, NbEpisodes = 5 }
             );
 
+            modelBuilder.Entity<FilmGenre>().HasData(
+                new FilmGenre { FilmId = 1, GenreId = 2 },
+                new FilmGenre { FilmId = 1, GenreId = 3 },
+                new FilmGenre { FilmId = 2, GenreId = 2 },
+                new FilmGenre { FilmId = 2, GenreId = 3 },
+                new FilmGenre { FilmId = 3, GenreId = 2 }
+            );
+
+            modelBuilder.Entity<SerieGenre>().HasData(
+                new SerieGenre { SerieId = 1, GenreId = 4 },
+                new SerieGenre { SerieId = 1, GenreId = 1 },
+                new SerieGenre { SerieId = 2, GenreId = 2 },
+                new SerieGenre { SerieId = 2, GenreId = 3 }
+            );
         }
     }
 
