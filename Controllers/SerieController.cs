@@ -38,6 +38,5 @@ namespace Reprise_back.Controllers
             await _service.DeleteAsync(id);
             return Ok();
         }
-
     }
 }
