@@ -11,14 +11,26 @@ namespace Reprise_back.Service
         private readonly ISeriesRepository _repo;
         public SeriesService(ISeriesRepository repo) => _repo = repo;
 
-        public Task<List<Serie>> GetAllAsync() => _repo.GetAllAsync();
+        public async Task<List<SerieDto>> GetAllAsync() {
+            var series = await _repo.GetAllAsync();
+            return series.Select(DtoMapper.ToSerieDto).ToList();
+        }
         public async Task<SerieDto?> GetByIdAsync(int id)
         {
             var series = await _repo.GetByIdAsync(id);
             return series == null ? null : DtoMapper.ToSerieDto(series);
         }
-        public Task AddAsync(Serie series) => _repo.AddAsync(series);
-        public Task UpdateAsync(Serie series) => _repo.UpdateAsync(series);
+        public async Task<SerieDto> AddAsync(SerieDto series)
+        {
+            series.Id = null;
+            var entity = DtoMapper.ToSerieEntity(series);
+            await _repo.AddAsync(entity);
+            return DtoMapper.ToSerieDto(entity);
+        }
+        public async Task UpdateAsync(SerieDto series)
+        {
+            await _repo.UpdateAsync(DtoMapper.ToSerieEntity(series));
+        }
         public Task DeleteAsync(int id) => _repo.DeleteAsync(id);
     }
 }

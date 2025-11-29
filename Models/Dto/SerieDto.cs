@@ -1,4 +1,6 @@
-﻿namespace Reprise_back.Models.DTO
+﻿using Reprise_back.Models.Dto;
+
+namespace Reprise_back.Models.DTO
 {
     public class SerieDto
     {
@@ -8,7 +10,7 @@
         public DateTime ReleaseDate { get; set; }
 
         public List<SeasonDto> Seasons { get; set; } = new();
-        public List<string> Genres { get; set; } = new();
+        public List<GenreDto> Genres { get; set; } = new();
 
     }
 }
