@@ -20,9 +20,9 @@ namespace Reprise_back.Controllers
         public async Task<IActionResult> Get(Guid id) => Ok(await _service.GetByIdAsync(id));
 
         [HttpPost]
-        public async Task<IActionResult> Create(SerieDto film)
+        public async Task<IActionResult> Create(SerieDto serie)
         {
-            var created = await _service.AddAsync(film);
+            var created = await _service.AddAsync(serie);
             return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
         }
 

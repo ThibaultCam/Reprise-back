@@ -1,13 +1,14 @@
 ﻿using Reprise_back.Models;
+using Reprise_back.Models.Dto;
 
 namespace Reprise_back.Service.Interface
 {
     public interface IFilmService
     {
-        Task<List<Film>> GetAllAsync();
-        Task<Film?> GetByIdAsync(Guid id);
-        Task AddAsync(Film film);
-        Task UpdateAsync(Film film);
+        Task<List<FilmDto>> GetAllAsync();
+        Task<FilmDto?> GetByIdAsync(Guid id);
+        Task<FilmDto> AddAsync(FilmDto film);
+        Task UpdateAsync(FilmDto film);
         Task DeleteAsync(Guid id);
     }
 }

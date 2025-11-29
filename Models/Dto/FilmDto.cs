@@ -8,7 +8,7 @@
         public DateTime ReleaseDate { get; set; }
         public int DurationMinutes { get; set; }
 
-        public List<string> Genres { get; set; } = new();
+        public List<GenreDto> Genres { get; set; } = new();
     }
 
 }

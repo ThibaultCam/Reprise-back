@@ -49,6 +49,7 @@ namespace Reprise_back.Models.Mapper
         };
         #endregion
 
+        #region Film Dto
         public static FilmDto ToFilmDto(Film f)
         {
             return new FilmDto
@@ -58,8 +59,30 @@ namespace Reprise_back.Models.Mapper
                 Description = f.Description,
                 ReleaseDate = f.ReleaseDate,
                 DurationMinutes = f.DurationMinutes,
-                Genres = f.FilmGenres.Select(fg => fg.Genre.Name).ToList()
+                Genres = f.FilmGenres.Select(sg => sg.Genre != null ? new GenreDto
+                {
+                    Id = sg.Genre.Id,
+                    Name = sg.Genre.Name
+                } : new GenreDto { }).ToList()
             };
         }
+
+        public static Film ToFilmEntity(FilmDto dto)
+        {
+            return new Film
+            {
+                Id = dto.Id, // si tu utilises Guid, EF Core peut le générer si dto.Id est vide
+                Name = dto.Name,
+                Description = dto.Description,
+                ReleaseDate = dto.ReleaseDate,
+                DurationMinutes = dto.DurationMinutes,
+                FilmGenres = dto.Genres.Select(genre => new FilmGenre
+                {
+                    FilmId = dto.Id,   // attention : si Id est généré par EF, il sera mis à jour après SaveChanges
+                    GenreId = genre.Id
+                }).ToList()
+            };
+        }
+        #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Reprise_back.Models;
+using Reprise_back.Models.Dto;
 using Reprise_back.Service.Interface;
 
 namespace Reprise_back.Controllers
@@ -18,14 +19,14 @@ namespace Reprise_back.Controllers
         public async Task<IActionResult> Get(Guid id) => Ok(await _service.GetByIdAsync(id));
 
         [HttpPost]
-        public async Task<IActionResult> Create(Film film)
+        public async Task<IActionResult> Create(FilmDto film)
         {
-            await _service.AddAsync(film);
-            return Ok();
+            var created = await _service.AddAsync(film);
+            return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, Film film)
+        public async Task<IActionResult> Update(Guid id, FilmDto film)
         {
             film.Id = id;
             await _service.UpdateAsync(film);
