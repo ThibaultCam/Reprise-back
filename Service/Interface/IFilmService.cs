@@ -5,9 +5,9 @@ namespace Reprise_back.Service.Interface
     public interface IFilmService
     {
         Task<List<Film>> GetAllAsync();
-        Task<Film?> GetByIdAsync(int id);
+        Task<Film?> GetByIdAsync(Guid id);
         Task AddAsync(Film film);
         Task UpdateAsync(Film film);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(Guid id);
     }
 }

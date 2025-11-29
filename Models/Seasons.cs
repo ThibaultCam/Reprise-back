@@ -2,10 +2,10 @@
 {
     public class Seasons
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public int SeasonNumber { get; set; }
         public int NbEpisodes { get; set; } = 0;
-        public int SerieId { get; set; }
+        public Guid SerieId { get; set; }
         public Serie? Serie { get; set; }
     }
 }

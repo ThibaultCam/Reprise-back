@@ -2,7 +2,7 @@
 {
     public class SeasonDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public int SeasonNumber { get; set; }
         public int NbEpisodes { get; set; }
 

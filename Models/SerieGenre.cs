@@ -2,10 +2,10 @@
 {
     public class SerieGenre
     {
-        public int SerieId { get; set; }
+        public Guid SerieId { get; set; }
         public Serie? Serie { get; set; }
 
-        public int GenreId { get; set; }
+        public Guid GenreId { get; set; }
         public Genre? Genre { get; set; }
     }
 }

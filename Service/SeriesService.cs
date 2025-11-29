@@ -15,14 +15,14 @@ namespace Reprise_back.Service
             var series = await _repo.GetAllAsync();
             return series.Select(DtoMapper.ToSerieDto).ToList();
         }
-        public async Task<SerieDto?> GetByIdAsync(int id)
+        public async Task<SerieDto?> GetByIdAsync(Guid id)
         {
             var series = await _repo.GetByIdAsync(id);
             return series == null ? null : DtoMapper.ToSerieDto(series);
         }
         public async Task<SerieDto> AddAsync(SerieDto series)
         {
-            series.Id = null;
+            series.Id = Guid.NewGuid();
             var entity = DtoMapper.ToSerieEntity(series);
             await _repo.AddAsync(entity);
             return DtoMapper.ToSerieDto(entity);
@@ -31,6 +31,6 @@ namespace Reprise_back.Service
         {
             await _repo.UpdateAsync(DtoMapper.ToSerieEntity(series));
         }
-        public Task DeleteAsync(int id) => _repo.DeleteAsync(id);
+        public Task DeleteAsync(Guid id) => _repo.DeleteAsync(id);
     }
 }

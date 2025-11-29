@@ -4,7 +4,7 @@ namespace Reprise_back.Models.DTO
 {
     public class SerieDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
         public DateTime ReleaseDate { get; set; }

@@ -11,10 +11,10 @@ namespace Reprise_back.Repository
         public SeriesRepository(AppDbContext context) => _context = context;
 
         public async Task<List<Serie>> GetAllAsync() => await _context.Series.Include(s => s.Seasons).Include(s => s.Genres).ToListAsync();
-        public async Task<Serie?> GetByIdAsync(int id) => await _context.Series.Include(s => s.Seasons).Include(s => s.Genres).FirstOrDefaultAsync(s => s.Id == id);
+        public async Task<Serie?> GetByIdAsync(Guid id) => await _context.Series.Include(s => s.Seasons).Include(s => s.Genres).FirstOrDefaultAsync(s => s.Id == id);
         public async Task AddAsync(Serie series) { _context.Series.Add(series); await _context.SaveChangesAsync(); }
         public async Task UpdateAsync(Serie series) { _context.Series.Update(series); await _context.SaveChangesAsync(); }
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var series = await _context.Series.FindAsync(id);
             if (series != null) { _context.Series.Remove(series); await _context.SaveChangesAsync(); }

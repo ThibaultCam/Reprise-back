@@ -17,7 +17,7 @@ namespace Reprise_back.Controllers
         public async Task<IActionResult> GetAll() => Ok(await _service.GetAllAsync());
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id) => Ok(await _service.GetByIdAsync(id));
+        public async Task<IActionResult> Get(Guid id) => Ok(await _service.GetByIdAsync(id));
 
         [HttpPost]
         public async Task<IActionResult> Create(SerieDto film)
@@ -27,7 +27,7 @@ namespace Reprise_back.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, SerieDto serie)
+        public async Task<IActionResult> Update(Guid id, SerieDto serie)
         {
             serie.Id = id;
             await _service.UpdateAsync(serie);
@@ -35,7 +35,7 @@ namespace Reprise_back.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             await _service.DeleteAsync(id);
             return Ok();

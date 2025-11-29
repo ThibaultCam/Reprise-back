@@ -24,11 +24,9 @@ namespace Reprise_back.Migrations
 
             modelBuilder.Entity("Reprise_back.Models.Film", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -51,7 +49,7 @@ namespace Reprise_back.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
                             Description = "A thief who steals corporate secrets through the use of dream-sharing technology.",
                             DurationMinutes = 148,
                             Name = "Inception",
@@ -59,7 +57,7 @@ namespace Reprise_back.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"),
                             Description = "A computer hacker learns about the true nature of his reality and his role in the war against its controllers.",
                             DurationMinutes = 136,
                             Name = "The Matrix",
@@ -67,7 +65,7 @@ namespace Reprise_back.Migrations
                         },
                         new
                         {
-                            Id = 3,
+                            Id = new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"),
                             Description = "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
                             DurationMinutes = 169,
                             Name = "Interstellar",
@@ -77,11 +75,11 @@ namespace Reprise_back.Migrations
 
             modelBuilder.Entity("Reprise_back.Models.FilmGenre", b =>
                 {
-                    b.Property<int>("FilmId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("FilmId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GenreId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("FilmId", "GenreId");
 
@@ -92,38 +90,31 @@ namespace Reprise_back.Migrations
                     b.HasData(
                         new
                         {
-                            FilmId = 1,
-                            GenreId = 2
+                            FilmId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
+                            GenreId = new Guid("33333333-3333-3333-3333-333333333333")
                         },
                         new
                         {
-                            FilmId = 1,
-                            GenreId = 3
+                            FilmId = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"),
+                            GenreId = new Guid("33333333-3333-3333-3333-333333333333")
                         },
                         new
                         {
-                            FilmId = 2,
-                            GenreId = 2
+                            FilmId = new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"),
+                            GenreId = new Guid("33333333-3333-3333-3333-333333333333")
                         },
                         new
                         {
-                            FilmId = 2,
-                            GenreId = 3
-                        },
-                        new
-                        {
-                            FilmId = 3,
-                            GenreId = 2
+                            FilmId = new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"),
+                            GenreId = new Guid("22222222-2222-2222-2222-222222222222")
                         });
                 });
 
             modelBuilder.Entity("Reprise_back.Models.Genre", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -136,33 +127,31 @@ namespace Reprise_back.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
                             Name = "Action"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
                             Name = "Drama"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = new Guid("33333333-3333-3333-3333-333333333333"),
                             Name = "Science Fiction"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = new Guid("44444444-4444-4444-4444-444444444444"),
                             Name = "Thriller"
                         });
                 });
 
             modelBuilder.Entity("Reprise_back.Models.Seasons", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("NbEpisodes")
                         .HasColumnType("int");
@@ -170,8 +159,8 @@ namespace Reprise_back.Migrations
                     b.Property<int>("SeasonNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("SerieId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("SerieId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -182,41 +171,39 @@ namespace Reprise_back.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            NbEpisodes = 5,
+                            Id = new Guid("f1111111-1111-1111-1111-111111111111"),
+                            NbEpisodes = 7,
                             SeasonNumber = 1,
-                            SerieId = 1
+                            SerieId = new Guid("dddddddd-dddd-dddd-dddd-dddddddddddd")
                         },
                         new
                         {
-                            Id = 2,
-                            NbEpisodes = 5,
+                            Id = new Guid("f2222222-2222-2222-2222-222222222222"),
+                            NbEpisodes = 13,
                             SeasonNumber = 2,
-                            SerieId = 1
+                            SerieId = new Guid("dddddddd-dddd-dddd-dddd-dddddddddddd")
                         },
                         new
                         {
-                            Id = 3,
-                            NbEpisodes = 5,
+                            Id = new Guid("f3333333-3333-3333-3333-333333333333"),
+                            NbEpisodes = 8,
                             SeasonNumber = 1,
-                            SerieId = 2
+                            SerieId = new Guid("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee")
                         },
                         new
                         {
-                            Id = 4,
-                            NbEpisodes = 5,
+                            Id = new Guid("f4444444-4444-4444-4444-444444444444"),
+                            NbEpisodes = 9,
                             SeasonNumber = 2,
-                            SerieId = 2
+                            SerieId = new Guid("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee")
                         });
                 });
 
             modelBuilder.Entity("Reprise_back.Models.Serie", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -236,14 +223,14 @@ namespace Reprise_back.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("dddddddd-dddd-dddd-dddd-dddddddddddd"),
                             Description = "A high school chemistry teacher turned methamphetamine producer navigates the dangers of the drug trade.",
                             Name = "Breaking Bad",
                             ReleaseDate = new DateTime(2008, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee"),
                             Description = "A group of kids in the 1980s uncover supernatural mysteries in their small town.",
                             Name = "Stranger Things",
                             ReleaseDate = new DateTime(2016, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -252,11 +239,11 @@ namespace Reprise_back.Migrations
 
             modelBuilder.Entity("Reprise_back.Models.SerieGenre", b =>
                 {
-                    b.Property<int>("SerieId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("SerieId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GenreId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("SerieId", "GenreId");
 
@@ -267,23 +254,23 @@ namespace Reprise_back.Migrations
                     b.HasData(
                         new
                         {
-                            SerieId = 1,
-                            GenreId = 4
+                            SerieId = new Guid("dddddddd-dddd-dddd-dddd-dddddddddddd"),
+                            GenreId = new Guid("22222222-2222-2222-2222-222222222222")
                         },
                         new
                         {
-                            SerieId = 1,
-                            GenreId = 1
+                            SerieId = new Guid("dddddddd-dddd-dddd-dddd-dddddddddddd"),
+                            GenreId = new Guid("44444444-4444-4444-4444-444444444444")
                         },
                         new
                         {
-                            SerieId = 2,
-                            GenreId = 2
+                            SerieId = new Guid("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee"),
+                            GenreId = new Guid("33333333-3333-3333-3333-333333333333")
                         },
                         new
                         {
-                            SerieId = 2,
-                            GenreId = 3
+                            SerieId = new Guid("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee"),
+                            GenreId = new Guid("44444444-4444-4444-4444-444444444444")
                         });
                 });
 
