@@ -20,14 +20,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     )
 );
 
-
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddScoped<IFilmRepository, FilmRepository>();
 builder.Services.AddScoped<ISeriesRepository, SeriesRepository>();
+builder.Services.AddScoped<IUserDataFilmRepository, UserDataFilmRepository>();
 
 builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<ISeriesService, SeriesService>();
+builder.Services.AddScoped<IUserDataFilmService, UserDataFilmService>();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();

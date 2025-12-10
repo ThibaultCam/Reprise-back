@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Reprise_back.Models.Dto;
 using Reprise_back.Service.Interface;
 using System.Security.Claims;
 
@@ -24,12 +25,12 @@ namespace Reprise_back.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost("update")]
         [Authorize]
-        public async Task<IActionResult> UpdateUserFilmRate(double rate, Guid filmId)
+        public async Task<IActionResult> UpdateUserFilmRate([FromBody] UpdateFilmRateDto dto)
         {
             string userId = GetUserId();
-            await _service.UpdateFilmRate(rate, filmId, userId);
+            await _service.UpdateFilmRate(dto.Rate, dto.FilmId, userId);
             return Ok();
         }
     }

@@ -11,7 +11,7 @@ namespace Reprise_back.Service
 
         public Task UpdateFilmRate(double rate, Guid filmId, string userId)
         {
-            throw new NotImplementedException();
+            return _repo.UpdateFilmRate(rate, filmId, userId);
         }
     }
 }
