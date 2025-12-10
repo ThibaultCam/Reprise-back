@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
@@ -9,7 +8,7 @@ using Reprise_back.Repository.Interface;
 using Reprise_back.Service;
 using Reprise_back.Service.Interface;
 {
-    
+
 }
 
 var builder = WebApplication.CreateBuilder(args);

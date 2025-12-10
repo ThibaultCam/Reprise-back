@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Reprise_back.Models.Dto
+﻿namespace Reprise_back.Models.Dto
 {
     public class FilmDto : MediaDto
     {

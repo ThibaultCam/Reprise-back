@@ -1,5 +1,4 @@
 ﻿using Reprise_back.Models;
-using Reprise_back.Models.DTO;
 
 namespace Reprise_back.Repository.Interface
 {

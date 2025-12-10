@@ -1,5 +1,4 @@
-﻿using Reprise_back.Models;
-using Reprise_back.Models.DTO;
+﻿using Reprise_back.Models.DTO;
 using Reprise_back.Models.Mapper;
 using Reprise_back.Repository.Interface;
 using Reprise_back.Service.Interface;
@@ -11,7 +10,8 @@ namespace Reprise_back.Service
         private readonly ISeriesRepository _repo;
         public SeriesService(ISeriesRepository repo) => _repo = repo;
 
-        public async Task<List<SerieDto>> GetAllAsync() {
+        public async Task<List<SerieDto>> GetAllAsync()
+        {
             var series = await _repo.GetAllAsync();
             return series.Select(DtoMapper.ToSerieDto).ToList();
         }

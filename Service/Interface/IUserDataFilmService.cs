@@ -1,6 +1,4 @@
-﻿using Reprise_back.Models.Dto;
-
-namespace Reprise_back.Service.Interface
+﻿namespace Reprise_back.Service.Interface
 {
     public interface IUserDataFilmService
     {

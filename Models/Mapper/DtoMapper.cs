@@ -20,10 +20,11 @@ namespace Reprise_back.Models.Mapper
                     SeasonNumber = se.SeasonNumber,
                     NbEpisodes = se.NbEpisodes
                 }).ToList(),
-                Genres = s.SerieGenres.Select(sg => sg.Genre != null ? new GenreDto {
+                Genres = s.SerieGenres.Select(sg => sg.Genre != null ? new GenreDto
+                {
                     Id = sg.Genre.Id,
                     Name = sg.Genre.Name
-                }: new GenreDto {}).ToList()
+                } : new GenreDto { }).ToList()
             };
         }
 

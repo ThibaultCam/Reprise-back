@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Reprise_back.Models;
 using Reprise_back.Models.Dto;
 using Reprise_back.Service.Interface;
 using System.Security.Claims;

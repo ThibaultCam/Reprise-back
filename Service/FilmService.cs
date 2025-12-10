@@ -1,5 +1,4 @@
-﻿using Reprise_back.Models;
-using Reprise_back.Models.Dto;
+﻿using Reprise_back.Models.Dto;
 using Reprise_back.Models.Mapper;
 using Reprise_back.Repository.Interface;
 using Reprise_back.Service.Interface;
@@ -16,13 +15,13 @@ namespace Reprise_back.Service
             var films = await _repo.GetAllAsync(); ;
             return films.Select(DtoMapper.ToFilmDto).ToList();
         }
-       
+
         public async Task<FilmDto?> GetByIdAsync(Guid id, string userId = "")
         {
             var film = userId == "" ? await _repo.GetByIdAsync(id) : await _repo.GetByIdAsync(id, userId);
             return film == null ? null : DtoMapper.ToFilmDto(film);
         }
-        
+
         public async Task<FilmDto> AddAsync(FilmDto film)
         {
             film.Id = Guid.NewGuid();
@@ -30,7 +29,7 @@ namespace Reprise_back.Service
             await _repo.AddAsync(entity); ;
             return DtoMapper.ToFilmDto(entity);
         }
-        
+
         public async Task UpdateAsync(FilmDto film)
         {
             await _repo.UpdateAsync(DtoMapper.ToFilmEntity(film));

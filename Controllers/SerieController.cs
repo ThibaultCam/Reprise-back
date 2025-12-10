@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Reprise_back.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using Reprise_back.Models.DTO;
 using Reprise_back.Service.Interface;
 

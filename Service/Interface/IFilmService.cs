@@ -1,5 +1,4 @@
-﻿using Reprise_back.Models;
-using Reprise_back.Models.Dto;
+﻿using Reprise_back.Models.Dto;
 
 namespace Reprise_back.Service.Interface
 {

@@ -1,7 +1,6 @@
-﻿using Reprise_back.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Reprise_back.Models;
 using Reprise_back.Repository.Interface;
-using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Reprise_back.Repository
 {

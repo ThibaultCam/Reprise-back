@@ -17,13 +17,15 @@ namespace Reprise_back.Repository
         public async Task UpdateFilmRate(double rate, Guid filmId, string userId)
         {
             var userFilmRate = await _context.UserFilmRates.Where(r => r.FilmId == filmId && r.UserId == userId).FirstOrDefaultAsync();
-            
-            if (userFilmRate != null) {
+
+            if (userFilmRate != null)
+            {
                 userFilmRate.Rate = rate;
                 _context.UserFilmRates.Update(userFilmRate);
                 await _context.SaveChangesAsync();
             }
-            else {
+            else
+            {
                 var newRate = new UserFilmRate { FilmId = filmId, UserId = userId, Rate = rate };
                 _context.UserFilmRates.Add(newRate);
                 await _context.SaveChangesAsync();
