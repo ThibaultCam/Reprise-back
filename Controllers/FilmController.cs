@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Reprise_back.Models;
 using Reprise_back.Models.Dto;
 using Reprise_back.Service.Interface;
+using System.Security.Claims;
 
 namespace Reprise_back.Controllers
 {
@@ -12,8 +14,26 @@ namespace Reprise_back.Controllers
         private readonly IFilmService _service;
         public FilmController(IFilmService service) => _service = service;
 
+        private string GetUserId()
+        {
+            // "oid" = Object ID (unique par tenant)
+            var oid = User.FindFirstValue("http://schemas.microsoft.com/identity/claims/objectidentifier");
+            if (!string.IsNullOrEmpty(oid)) return oid;
+
+            // "sub" = Subject (unique par app)
+            var sub = User.FindFirstValue("sub");
+            return sub ?? throw new Exception("User ID not found in token");
+        }
+
+
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(await _service.GetAllAsync());
+        [Authorize]
+        public async Task<IActionResult> GetAll()
+        {
+            var userId = GetUserId();
+
+            return Ok(await _service.GetAllAsync());
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id) => Ok(await _service.GetByIdAsync(id));

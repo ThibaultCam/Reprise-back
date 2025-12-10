@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
+using Microsoft.IdentityModel.Logging;
 using Reprise_back.Middlewares;
 using Reprise_back.Repository;
 using Reprise_back.Repository.Interface;
@@ -10,6 +13,7 @@ using Reprise_back.Service.Interface;
 }
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
@@ -48,6 +52,51 @@ builder.Services.AddCors(options =>
          .AllowAnyMethod();
     });
 });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddMicrosoftIdentityWebApi(options =>
+
+        {
+            configuration.Bind("AzureAd", options);
+            options.Events = new JwtBearerEvents();
+
+            options.Events = new JwtBearerEvents
+            {
+                OnTokenValidated = context =>
+                {
+                    var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+
+                    // Access the scope claim (scp) directly
+                    var scopeClaim = context.Principal?.Claims.FirstOrDefault(c => c.Type == "scp")?.Value;
+
+                    if (scopeClaim != null)
+                    {
+                        logger.LogInformation("Scope found in token: {Scope}", scopeClaim);
+                    }
+                    else
+                    {
+                        logger.LogWarning("Scope claim not found in token.");
+                    }
+
+                    return Task.CompletedTask;
+                },
+                OnAuthenticationFailed = context =>
+                {
+                    var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+                    logger.LogError("Authentication failed: {Message}", context.Exception.Message);
+                    return Task.CompletedTask;
+                },
+                OnChallenge = context =>
+                {
+                    var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+                    logger.LogError("Challenge error: {ErrorDescription}", context.ErrorDescription);
+                    return Task.CompletedTask;
+                }
+            };
+        }, options => { configuration.Bind("AzureAd", options); });
+
+// The following flag can be used to get more descriptive errors in development environments
+IdentityModelEventSource.ShowPII = false;
 
 var app = builder.Build();
 
