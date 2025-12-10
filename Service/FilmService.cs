@@ -17,9 +17,9 @@ namespace Reprise_back.Service
             return films.Select(DtoMapper.ToFilmDto).ToList();
         }
        
-        public async Task<FilmDto?> GetByIdAsync(Guid id)
+        public async Task<FilmDto?> GetByIdAsync(Guid id, string userId = "")
         {
-            var film = await _repo.GetByIdAsync(id);
+            var film = userId == "" ? await _repo.GetByIdAsync(id) : await _repo.GetByIdAsync(id, userId);
             return film == null ? null : DtoMapper.ToFilmDto(film);
         }
         

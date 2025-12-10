@@ -11,6 +11,21 @@ namespace Reprise_back.Repository
 
         public async Task<List<Film>> GetAllAsync() => await _context.Films.Include(s => s.Genres).ToListAsync();
         public async Task<Film?> GetByIdAsync(Guid id) => await _context.Films.Include(s => s.Genres).FirstOrDefaultAsync(s => s.Id == id);
+        public async Task<Film?> GetByIdAsync(Guid id, string userId)
+        {
+            var film = await _context.Films
+                .Include(f => f.Genres)
+                .Include(f => f.Rates)
+                .FirstOrDefaultAsync(f => f.Id == id);
+
+            if (film != null)
+            {
+                film.UserRate = film.Rates.FirstOrDefault(r => r.UserId == userId);
+            }
+
+            return film;
+        }
+
         public async Task AddAsync(Film film) { _context.Films.Add(film); await _context.SaveChangesAsync(); }
         public async Task UpdateAsync(Film film) { _context.Films.Update(film); await _context.SaveChangesAsync(); }
         public async Task DeleteAsync(Guid id)

@@ -59,6 +59,7 @@ namespace Reprise_back.Models.Mapper
                 Description = f.Description,
                 ReleaseDate = f.ReleaseDate,
                 DurationMinutes = f.DurationMinutes,
+                UserRate = f.UserRate != null ? f.UserRate.Rate : 0,
                 Genres = f.FilmGenres.Select(sg => sg.Genre != null ? new GenreDto
                 {
                     Id = sg.Genre.Id,

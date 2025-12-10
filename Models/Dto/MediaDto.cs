@@ -13,5 +13,6 @@ namespace Reprise_back.Models.Dto
 
         [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
+        public double? UserRate { get; set; }
     }
 }

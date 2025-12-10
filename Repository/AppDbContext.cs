@@ -11,6 +11,8 @@ namespace Reprise_back.Repository
         public DbSet<Serie> Series => Set<Serie>();
         public DbSet<Genre> Genres => Set<Genre>();
         public DbSet<Seasons> Seasons => Set<Seasons>();
+        public DbSet<UserFilmRate> UserFilmRates => Set<UserFilmRate>();
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -149,6 +151,14 @@ namespace Reprise_back.Repository
                 new SerieGenre { SerieId = serieStrangerThings, GenreId = genreSciFi },
                 new SerieGenre { SerieId = serieStrangerThings, GenreId = genreThriller }
             );
+
+            modelBuilder.Entity<UserFilmRate>()
+                .HasKey(ufr => ufr.Id);
+
+            modelBuilder.Entity<UserFilmRate>()
+                .HasOne(ufr => ufr.Film)
+                .WithMany(f => f.Rates)
+                .HasForeignKey(ufr => ufr.FilmId);
         }
     }
 }
