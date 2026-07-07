@@ -17,7 +17,7 @@ namespace Reprise_back.Repository
                 .Include(f => f.Genres)
                 .Include(f => f.Rates)
                 .FirstOrDefaultAsync(f => f.Id == id);
-
+            //test
             if (film != null)
             {
                 film.UserRate = film.Rates.FirstOrDefault(r => r.UserId == userId);
